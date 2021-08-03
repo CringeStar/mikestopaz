@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "mikestopaz:topaz"
+        }
+    },
+    "result": {
+        "item": "mikestopaz:topaz_block",
+        "count": 1
+    }
+}

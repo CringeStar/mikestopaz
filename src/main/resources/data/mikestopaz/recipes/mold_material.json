@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "mikestopaz:mold_block"
+        }
+    ],
+    "result": {
+        "item": "mikestopaz:mold_material",
+        "count": 1
+    }
+}

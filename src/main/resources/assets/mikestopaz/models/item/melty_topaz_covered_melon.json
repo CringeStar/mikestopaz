@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "mikestopaz:item/melty_topaz_covered_melon"
+    }
+  }

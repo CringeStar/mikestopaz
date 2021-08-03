@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:blasting",
+    "ingredient": {
+        "item": "mikestopaz:topaz_enriched_melon"
+    },
+    "result": "mikestopaz:melty_topaz_enriched_melon",
+    "experience": 2,
+    "cookingtime": 800
+}

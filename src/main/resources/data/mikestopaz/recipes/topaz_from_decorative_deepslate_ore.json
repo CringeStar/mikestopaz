@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "mikestopaz:decorative_deepslate_topaz_ore"
+        }
+    ],
+    "result": {
+        "item": "mikestopaz:topaz",
+        "count": 1
+    }
+}

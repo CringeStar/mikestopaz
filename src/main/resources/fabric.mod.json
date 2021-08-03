@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "mikestopaz",
+  "version": "${version}",
+
+  "name": "Mike's Topaz",
+  "description": "Adds topaz",
+  "authors": [
+    "CringeStar_Boi"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/mikestopaz/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cringestar.mikes.topaz.MikesTopaz"
+    ],
+    "client":[
+      "cringestar.mikes.topaz.MikesTopazClient"
+    ]
+  },
+  "mixins": [
+    "mikestopaz.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "accessWidener": "mikestopaz.accesswidener"
+}

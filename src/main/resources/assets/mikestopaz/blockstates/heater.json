@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "empty=true": { "model": "mikestopaz:block/heater" },
+        "empty=false": { "model": "mikestopaz:block/heater_full" }
+    }
+}

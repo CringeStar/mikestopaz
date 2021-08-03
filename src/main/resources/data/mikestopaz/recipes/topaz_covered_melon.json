@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##A",
+        "#G#",
+        "##A"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:gold_ingot"
+        },
+        "#": {
+            "item": "mikestopaz:topaz"
+        },
+        "G": {
+            "item": "minecraft:glistering_melon_slice"
+        }
+    },
+    "result": {
+        "item": "mikestopaz:topaz_covered_melon",
+        "count": 1
+    }
+}

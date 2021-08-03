@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#  ",
+        " I ",
+        "  #"
+    ],
+    "key": {
+        "#": {
+            "item": "mikestopaz:pickaxe_head_shape"
+        },
+        "I": {
+            "item": "mikestopaz:mold_material"
+        }
+    },
+    "result": {
+        "item": "mikestopaz:pickaxe_mold",
+        "count": 1
+    }
+}

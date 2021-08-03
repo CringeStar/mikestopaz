@@ -1,0 +1,24 @@
+{
+
+    "item.mikestopaz.topaz": "Topaz Gem",
+    "item.mikestopaz.topaz_covered_melon": "Topaz Covered Melon",
+    "item.mikestopaz.melty_topaz_covered_melon": "Melty Topaz Covered Melon",
+    "item.mikestopaz.topaz_enriched_melon": "Enriched Topaz Melon",
+    "item.mikestopaz.melty_topaz_enriched_melon": "Melty Enriched Topaz Melon",
+    "block.mikestopaz.topaz_block": "Block of Topaz",
+    "block.mikestopaz.topaz_ore": "Topaz Ore",
+    "block.mikestopaz.deepslate_topaz_ore": "Deepslate Topaz Ore",
+    "block.mikestopaz.decorative_topaz_ore": "Decorative Topaz Ore",
+    "block.mikestopaz.decorative_deepslate_topaz_ore": "Decorative Deepslate Topaz Ore",
+    "block.mikestopaz.heater": "Topaz Heater",
+    "block.mikestopaz.super_container": "Super Container",
+    "block.mikestopaz.contained_compact_lava": "Contained Compact Lava",
+    "block.mikestopaz.mold_block": "Mold Material Block",
+    "block.mikestopaz.mold_material": "Mold Material",
+    "block.mikestopaz.pickaxe_mold": "Topaz Pickaze Head Mold",
+    "item.mikestopaz.pickaxe_head_shape": "Pickaxe Head Shape",
+    "item.mikestopaz.topaz_pickaxe_head": "Topaz Pickaxe Head",
+    "item.mikestopaz.topaz_pickaxe": "Topaz Pickaxe",
+    "itemGroup.mikestopaz.general": "Mike's Topaz Mod"
+  }
+  

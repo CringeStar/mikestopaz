@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "#G#",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "mikestopaz:topaz_block"
+        },
+        "G": {
+            "item": "mikestopaz:topaz_covered_melon"
+        }
+    },
+    "result": {
+        "item": "mikestopaz:topaz_enriched_melon",
+        "count": 1
+    }
+}

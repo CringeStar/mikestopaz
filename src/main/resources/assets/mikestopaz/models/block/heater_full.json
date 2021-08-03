@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "mikestopaz:block/heater_front",
+    "north": "mikestopaz:block/heater_front",
+    "south": "mikestopaz:block/heater_front",
+    "east": "mikestopaz:block/heater_front",
+    "west": "mikestopaz:block/heater_front",
+    "up": "mikestopaz:block/heater_top_hot",
+    "down": "mikestopaz:block/heater_bottom"
+  }
+}

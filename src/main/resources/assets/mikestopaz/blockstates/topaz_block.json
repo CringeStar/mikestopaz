@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "":{
+            "model": "mikestopaz:block/topaz_block"
+        }
+    }
+}

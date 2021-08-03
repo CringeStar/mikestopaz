@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:blasting",
+    "ingredient": {
+        "item": "mikestopaz:deepslate_topaz_ore"
+    },
+    "result": "mikestopaz:topaz",
+    "experience": 0.5,
+    "cookingtime": 100
+}

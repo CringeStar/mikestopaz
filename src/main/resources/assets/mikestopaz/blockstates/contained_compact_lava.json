@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "":{
+            "model": "mikestopaz:block/contained_compact_lava"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#H#",
+        "HEH",
+        "#H#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:stone"
+        },
+        "H": {
+            "item": "minecraft:hay_block"
+        },
+        "E": {
+            "item": "mikestopaz:topaz"
+        }
+    },
+    "result": {
+        "item": "mikestopaz:decorative_topaz_ore",
+        "count": 1
+    }
+}
