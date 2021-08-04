@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "mikestopaz:item/topaz_hoe"
+  }
+}

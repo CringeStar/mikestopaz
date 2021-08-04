@@ -1,5 +1,6 @@
 package cringestar.mikes.topaz;
 
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
 

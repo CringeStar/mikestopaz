@@ -19,6 +19,18 @@
     "item.mikestopaz.pickaxe_head_shape": "Pickaxe Head Shape",
     "item.mikestopaz.topaz_pickaxe_head": "Topaz Pickaxe Head",
     "item.mikestopaz.topaz_pickaxe": "Topaz Pickaxe",
+    "item.mikestopaz.sword_head_shape": "Sword Head Shape",
+    "item.mikestopaz.topaz_sword_head": "Topaz Sword Head",
+    "item.mikestopaz.topaz_sword": "Topaz Sword",
+    "item.mikestopaz.axe_head_shape": "Axe Head Shape",
+    "item.mikestopaz.topaz_axe_head": "Topaz Axe Head",
+    "item.mikestopaz.topaz_axe": "Topaz Axe",
+    "item.mikestopaz.shovel_head_shape": "Shovel Head Shape",
+    "item.mikestopaz.topaz_shovel_head": "Topaz Shovel Head",
+    "item.mikestopaz.topaz_shovel": "Topaz Shovel",
+    "item.mikestopaz.hoe_head_shape": "Hoe Head Shape",
+    "item.mikestopaz.topaz_hoe_head": "Topaz Hoe Head",
+    "item.mikestopaz.topaz_hoe": "Topaz Hoe",
     "itemGroup.mikestopaz.general": "Mike's Topaz Mod"
   }
   

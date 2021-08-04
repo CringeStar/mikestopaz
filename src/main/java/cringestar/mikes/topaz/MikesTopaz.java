@@ -63,10 +63,33 @@ public class MikesTopaz implements ModInitializer {
 
 	public static final Item PICKAXE_HEAD_SHAPE = new Item(new Item.Settings());
 
+	public static final Item AXE_HEAD_SHAPE = new Item(new Item.Settings());
+
+	public static final Item HOE_HEAD_SHAPE = new Item(new Item.Settings());
+
+	public static final Item SHOVEL_HEAD_SHAPE = new Item(new Item.Settings());
+
+	public static final Item SWORD_HEAD_SHAPE = new Item(new Item.Settings());
+
 	public static final Item TOPAZ_PICKAXE_HEAD = new Item(new Item.Settings());
+
+	public static final Item TOPAZ_AXE_HEAD = new Item(new Item.Settings());
+
+	public static final Item TOPAZ_HOE_HEAD = new Item(new Item.Settings());
+
+	public static final Item TOPAZ_SHOVEL_HEAD = new Item(new Item.Settings());
+
+	public static final Item TOPAZ_SWORD_HEAD = new Item(new Item.Settings());
 
 	public static ToolItem TOPAZ_PICKAXE = new TopazPickaxeItem(TopazToolMaterial.INSTANCE, 1, -2.8F, new Item.Settings());
 
+	public static ToolItem TOPAZ_SWORD = new SwordItem(TopazToolMaterial.INSTANCE, 3, -2.4F, new Item.Settings());
+
+	public static ToolItem TOPAZ_AXE = new TopazAxeItem(TopazToolMaterial.INSTANCE, 5, -3.1F, new Item.Settings());
+
+	public static ToolItem TOPAZ_SHOVEL = new ShovelItem(TopazToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings());
+
+	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -4, -0.5F, new Item.Settings());
 
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
 	.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TOPAZ_ORE
@@ -104,9 +127,20 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.MOLD_BLOCK));
 			stacks.add(new ItemStack(MikesTopaz.MOLD_MATERIAL));
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_HEAD_SHAPE));
-			stacks.add(new ItemStack(MikesTopaz.PICKAXE_MOLD));
+			stacks.add(new ItemStack(MikesTopaz.SWORD_HEAD_SHAPE));
+			stacks.add(new ItemStack(MikesTopaz.AXE_HEAD_SHAPE));
+			stacks.add(new ItemStack(MikesTopaz.SHOVEL_HEAD_SHAPE));
+			stacks.add(new ItemStack(MikesTopaz.HOE_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_PICKAXE_HEAD));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SWORD_HEAD));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_AXE_HEAD));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHOVEL_HEAD));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_HOE_HEAD));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_PICKAXE));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SWORD));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_AXE));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHOVEL));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_HOE));
 
 
 		})
@@ -161,9 +195,33 @@ public class MikesTopaz implements ModInitializer {
 
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_head_shape"), PICKAXE_HEAD_SHAPE);
 
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_head_shape"), SWORD_HEAD_SHAPE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_head_shape"),AXE_HEAD_SHAPE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "shovel_head_shape"), SHOVEL_HEAD_SHAPE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "hoe_head_shape"), HOE_HEAD_SHAPE);
+
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe_head"), TOPAZ_PICKAXE_HEAD);
 
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword_head"), TOPAZ_SWORD_HEAD);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe_head"), TOPAZ_AXE_HEAD);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel_head"), TOPAZ_SHOVEL_HEAD);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe_head"), TOPAZ_HOE_HEAD);
+
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe"), TOPAZ_PICKAXE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword"), TOPAZ_SWORD);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe"), TOPAZ_AXE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel"), TOPAZ_SHOVEL);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe"), TOPAZ_HOE);
 
 	RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz","topaz_ore"));
 	Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
