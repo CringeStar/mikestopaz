@@ -30,13 +30,12 @@ public class TopazAxeItem extends AxeItem {
 
 @Override
 public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    stack.damage(2, attacker, (e) -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
         attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 300, 1));
         attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 300, 1));
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 300, 1));
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0));
 
-    return true;
+    return super.postHit(stack, target, attacker);
 }
 
 
