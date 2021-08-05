@@ -83,11 +83,11 @@ public class MikesTopaz implements ModInitializer {
 
 	public static ToolItem TOPAZ_PICKAXE = new TopazPickaxeItem(TopazToolMaterial.INSTANCE, 1, -2.8F, new Item.Settings());
 
-	public static ToolItem TOPAZ_SWORD = new SwordItem(TopazToolMaterial.INSTANCE, 3, -2.4F, new Item.Settings());
+	public static ToolItem TOPAZ_SWORD = new TopazSwordItem(TopazToolMaterial.INSTANCE, -2, -1.5F, new Item.Settings());
 
-	public static ToolItem TOPAZ_AXE = new TopazAxeItem(TopazToolMaterial.INSTANCE, 5, -3.1F, new Item.Settings());
+	public static ToolItem TOPAZ_AXE = new TopazAxeItem(TopazToolMaterial.INSTANCE, -1, -2.5F, new Item.Settings());
 
-	public static ToolItem TOPAZ_SHOVEL = new ShovelItem(TopazToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings());
+	public static ToolItem TOPAZ_SHOVEL = new TopazShovelItem(TopazToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings());
 
 	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -4, -0.5F, new Item.Settings());
 
