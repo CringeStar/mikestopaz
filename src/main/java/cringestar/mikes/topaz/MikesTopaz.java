@@ -83,13 +83,13 @@ public class MikesTopaz implements ModInitializer {
 
 	public static ToolItem TOPAZ_PICKAXE = new TopazPickaxeItem(TopazToolMaterial.INSTANCE, 1, -2.8F, new Item.Settings());
 
-	public static ToolItem TOPAZ_SWORD = new TopazSwordItem(TopazToolMaterial.INSTANCE, -2, -1.5F, new Item.Settings());
+	public static ToolItem TOPAZ_SWORD = new TopazSwordItem(TopazToolMaterial.INSTANCE, 1, -1.6F, new Item.Settings());
 
-	public static ToolItem TOPAZ_AXE = new TopazAxeItem(TopazToolMaterial.INSTANCE, -1, -2.5F, new Item.Settings());
+	public static ToolItem TOPAZ_AXE = new TopazAxeItem(TopazToolMaterial.INSTANCE, 2, -2.5F, new Item.Settings());
 
 	public static ToolItem TOPAZ_SHOVEL = new TopazShovelItem(TopazToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings());
 
-	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -4, -0.5F, new Item.Settings());
+	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -3, -0.5F, new Item.Settings());
 
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
 	.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TOPAZ_ORE

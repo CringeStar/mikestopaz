@@ -17,14 +17,26 @@ public class TopazPickaxeItem extends PickaxeItem {
 
 @Override
 public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-    if (!world.isClient) {
         miner.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 300, 1));
         miner.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 300, 1));
         miner.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 300, 1));
         miner.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0));
-
-    }
     return super.postMine(stack,world,state,pos,miner);
 }
 
+    @Override
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (target.hasStatusEffect(StatusEffects.SLOWNESS)){
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 1));
+        } else {
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
+        }
+
+        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 1));
+        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 100, 1));
+        target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 1));
+
+
+        return super.postHit(stack, target, attacker);
+    }
 }

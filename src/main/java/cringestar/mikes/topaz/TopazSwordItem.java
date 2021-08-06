@@ -1,25 +1,44 @@
 package cringestar.mikes.topaz;
 
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class TopazSwordItem extends SwordItem {
     public TopazSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
     }
 
-
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 300, 1));
-        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 300, 1));
-        target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 300, 1));
-        target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0));
+        if (target.hasStatusEffect(StatusEffects.SLOWNESS)){
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 1));
+        } else {
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
+        }
+
+        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 1));
+        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 100, 1));
+        target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 1));
+
+
         return super.postHit(stack, target, attacker);
     }
+
+    @Override
+    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 300, 1));
+            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 300, 1));
+            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 300, 1));
+            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0));
+        return super.postMine(stack,world,state,pos,miner);
+    }
+
+
 }
