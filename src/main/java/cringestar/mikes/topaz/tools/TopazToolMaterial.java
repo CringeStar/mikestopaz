@@ -1,5 +1,6 @@
-package cringestar.mikes.topaz;
+package cringestar.mikes.topaz.tools;
 
+import cringestar.mikes.topaz.MikesTopaz;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 

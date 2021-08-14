@@ -37,6 +37,5 @@
   },
   "suggests": {
     "another-mod": "*"
-  },
-  "accessWidener": "mikestopaz.accesswidener"
+  }
 }

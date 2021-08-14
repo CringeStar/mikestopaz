@@ -1,8 +1,6 @@
 package cringestar.mikes.topaz;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -50,7 +48,8 @@ public class PickaxeMoldBlock extends Block{
             if (!world.isClient) {
                 i++;
         world.setBlockState(pos, state.with(FULLNESS, i));
-                itemStack.decrement(1);
+                if (!playerEntity.getAbilities().creativeMode) {itemStack.decrement(1);}
+
             }
     }
 
@@ -61,21 +60,20 @@ public class PickaxeMoldBlock extends Block{
 @Override
 
     
-public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random){
-    int i = state.get(FULLNESS);
-    int a = state.get(MELTED);
+public void randomTick(BlockState blockState, ServerWorld world, BlockPos pos, Random random){
+    int i = blockState.get(FULLNESS);
+    int a = blockState.get(MELTED);
     if(i == 12) {
         if (a < 2){
-
-            if (world.getBlockState(pos.down()).isOf(MikesTopaz.HEATER)){
+            if (world.getBlockState(pos.down()).isOf(MikesTopaz.HEATER))
+            if (!world.getBlockState(pos.down()).get(HeaterBlock.EMPTY)){
                     a++;
-                    world.setBlockState(pos, state.with(MELTED, a));
+                    world.setBlockState(pos, blockState.with(MELTED, a));
                     if (a == 2) {
                         if (!world.isClient) {
-                            world.setBlockState(pos, state.with(MELTED, 2));
+                            world.setBlockState(pos, blockState.with(MELTED, 2));
                             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         }
-
                 }
         }
     }

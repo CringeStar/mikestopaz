@@ -1,9 +1,11 @@
 package cringestar.mikes.topaz;
 
+import cringestar.mikes.topaz.tools.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -91,6 +93,8 @@ public class MikesTopaz implements ModInitializer {
 
 	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -3, -0.5F, new Item.Settings());
 
+	public static Item TOPAZ_SHIELD = new TopazShield(new FabricItemSettings(), 80, 640, 5, MikesTopaz.TOPAZ);
+
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
 	.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TOPAZ_ORE
 	.getDefaultState(),3))
@@ -141,6 +145,7 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_AXE));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHOVEL));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_HOE));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHIELD));
 
 
 		})
@@ -222,6 +227,8 @@ public class MikesTopaz implements ModInitializer {
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel"), TOPAZ_SHOVEL);
 
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe"), TOPAZ_HOE);
+
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shield"), TOPAZ_SHIELD);
 
 	RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz","topaz_ore"));
 	Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);

@@ -1,4 +1,4 @@
-package cringestar.mikes.topaz;
+package cringestar.mikes.topaz.tools;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +23,7 @@ public class TopazSwordItem extends SwordItem {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
         }
 
-        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 1));
+        attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 3));
         attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 100, 1));
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 1));
 
