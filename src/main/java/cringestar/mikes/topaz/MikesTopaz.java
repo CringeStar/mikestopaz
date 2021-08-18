@@ -1,5 +1,7 @@
 package cringestar.mikes.topaz;
 
+import com.google.common.collect.ImmutableList;
+import cringestar.mikes.topaz.shield.CustomShield;
 import cringestar.mikes.topaz.tools.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -9,11 +11,9 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -59,6 +59,10 @@ public class MikesTopaz implements ModInitializer {
 
 	public static final Block PICKAXE_MOLD = new PickaxeMoldBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque().ticksRandomly());
 
+	public static final Block AXE_MOLD = new AxeMoldBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque().ticksRandomly());
+
+	public static final Block SWORD_MOLD = new SwordMoldBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque().ticksRandomly());
+
 	public static final Block MOLD_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool());
 
 	public static final Block MOLD_MATERIAL = new MoldMaterial(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque());
@@ -93,22 +97,16 @@ public class MikesTopaz implements ModInitializer {
 
 	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -3, -0.5F, new Item.Settings());
 
-	public static Item TOPAZ_SHIELD = new TopazShield(new FabricItemSettings(), 80, 640, 5, MikesTopaz.TOPAZ);
+    public static final Item TOPAZ_SHIELD = new CustomShield(new FabricItemSettings(), 80, 640, 5, MikesTopaz.TOPAZ);
 
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
-	.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TOPAZ_ORE
-	.getDefaultState(),3))
+	.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, TOPAZ_ORE.getDefaultState()),
+	OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_TOPAZ_ORE.getDefaultState())),
+	3))
 	.decorate(Decorator.RANGE
 	.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(32)))))
 	.spreadHorizontally()
 	.repeat(1);
-
-	private static ConfiguredFeature<?, ?> TOPAZ_ORE_DEEPSLATE = Feature.ORE
-	.configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.DEEPSLATE), MikesTopaz.DEEPSLATE_TOPAZ_ORE
-	.getDefaultState(),3))
-    .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(32))))
-    .spreadHorizontally()
-    .repeat(1);
 
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(
 		new Identifier("mikestopaz","general"))
@@ -130,6 +128,8 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.CONTAINED_COMPACT_LAVA));
 			stacks.add(new ItemStack(MikesTopaz.MOLD_BLOCK));
 			stacks.add(new ItemStack(MikesTopaz.MOLD_MATERIAL));
+			stacks.add(new ItemStack(MikesTopaz.PICKAXE_MOLD));
+			stacks.add(new ItemStack(MikesTopaz.AXE_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.SWORD_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.AXE_HEAD_SHAPE));
@@ -192,6 +192,12 @@ public class MikesTopaz implements ModInitializer {
 	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","pickaxe_mold"), PICKAXE_MOLD);
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_mold"), new BlockItem(PICKAXE_MOLD, new Item.Settings()));
 
+	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","axe_mold"), AXE_MOLD);
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_mold"), new BlockItem(AXE_MOLD, new Item.Settings()));
+
+	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","sword_mold"), SWORD_MOLD);
+	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_mold"), new BlockItem(SWORD_MOLD, new Item.Settings()));
+
 	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","mold_block"), MOLD_BLOCK);
 	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_block"), new BlockItem(MOLD_BLOCK, new Item.Settings()));
 
@@ -233,10 +239,6 @@ public class MikesTopaz implements ModInitializer {
 	RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz","topaz_ore"));
 	Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
 	BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreOverworld);
-
-	RegistryKey<ConfiguredFeature<?, ?>> topazOreDeepslate = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz","deepslate_topaz_ore"));
-	Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreDeepslate.getValue(), TOPAZ_ORE_DEEPSLATE);
-	BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreDeepslate);
 
 
 	}

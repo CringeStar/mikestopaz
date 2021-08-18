@@ -4,10 +4,10 @@
   "package": "cringestar.mikes.topaz.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "PlayerEntityMixin",
+    "LivingEntityAccessor",
     "LivingEntityMixin",
-    "ShieldItemMixin",
-    "LivingEntityAccessor"
+    "PlayerEntityMixin",
+    "ShieldItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -15,7 +15,9 @@
     "block.mikestopaz.contained_compact_lava": "Contained Compact Lava",
     "block.mikestopaz.mold_block": "Mold Material Block",
     "block.mikestopaz.mold_material": "Mold Material",
-    "block.mikestopaz.pickaxe_mold": "Topaz Pickaze Head Mold",
+    "block.mikestopaz.pickaxe_mold": "Topaz Pickaxe Head Mold",
+    "block.mikestopaz.axe_mold": "Topaz Axe Head Mold",
+    "block.mikestopaz.sword_mold": "Topaz Sword Head Mold",
     "item.mikestopaz.pickaxe_head_shape": "Pickaxe Head Shape",
     "item.mikestopaz.topaz_pickaxe_head": "Topaz Pickaxe Head",
     "item.mikestopaz.topaz_pickaxe": "Topaz Pickaxe",
@@ -31,6 +33,7 @@
     "item.mikestopaz.hoe_head_shape": "Hoe Head Shape",
     "item.mikestopaz.topaz_hoe_head": "Topaz Hoe Head",
     "item.mikestopaz.topaz_hoe": "Topaz Hoe",
+    "item.mikestopaz.topaz_shield": "Topaz Glinted Shield",
     "itemGroup.mikestopaz.general": "Mike's Topaz Mod"
   }
   

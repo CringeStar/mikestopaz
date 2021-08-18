@@ -17,13 +17,15 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+//	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:1.17.1"
     mappings "net.fabricmc:yarn:1.17.1+build.10:v2"
     modImplementation "net.fabricmc:fabric-loader:0.11.6"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.36.1+1.17"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.2+1.17"
+//	modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}-20w05b"
 
 }
 

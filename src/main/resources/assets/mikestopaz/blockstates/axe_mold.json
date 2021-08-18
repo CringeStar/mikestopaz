@@ -1,0 +1,33 @@
+{
+    "variants": {
+        "fullness=0,melted=0": { "model": "mikestopaz:block/axe_mold" },
+        "fullness=1,melted=0": { "model": "mikestopaz:block/axe_mold_1" },
+        "fullness=2,melted=0": { "model": "mikestopaz:block/axe_mold_2" },
+        "fullness=3,melted=0": { "model": "mikestopaz:block/axe_mold_3" },
+        "fullness=4,melted=0": { "model": "mikestopaz:block/axe_mold_4" },
+        "fullness=5,melted=0": { "model": "mikestopaz:block/axe_mold_5" },
+        "fullness=6,melted=0": { "model": "mikestopaz:block/axe_mold_6" },
+        "fullness=7,melted=0": { "model": "mikestopaz:block/axe_mold_7" },
+        "fullness=8,melted=0": { "model": "mikestopaz:block/axe_mold_8" },
+        "fullness=9,melted=0": { "model": "mikestopaz:block/axe_mold_9" },
+        "fullness=10,melted=0":{ "model": "mikestopaz:block/axe_mold_10" },
+        "fullness=11,melted=0":{ "model": "mikestopaz:block/axe_mold_11" },
+        "fullness=12,melted=0":{ "model": "mikestopaz:block/axe_mold_12" },
+        "fullness=13,melted=0": { "model": "mikestopaz:block/axe_mold_13" },
+        "fullness=14,melted=0": { "model": "mikestopaz:block/axe_mold_14" },
+        "fullness=15,melted=0": { "model": "mikestopaz:block/axe_mold_15" },
+        "fullness=16,melted=0": { "model": "mikestopaz:block/axe_mold_16" },
+        "fullness=17,melted=0": { "model": "mikestopaz:block/axe_mold_17" },
+        "fullness=18,melted=0": { "model": "mikestopaz:block/axe_mold_18" },
+        "fullness=19,melted=0": { "model": "mikestopaz:block/axe_mold_19" },
+        "fullness=20,melted=0": { "model": "mikestopaz:block/axe_mold_20" },
+        "fullness=21,melted=0": { "model": "mikestopaz:block/axe_mold_21" },
+        "fullness=22,melted=0":{ "model": "mikestopaz:block/axe_mold_22" },
+        "fullness=23,melted=0":{ "model": "mikestopaz:block/axe_mold_23" },
+        "fullness=24,melted=0":{ "model": "mikestopaz:block/axe_mold_24" },
+        "fullness=24,melted=1":{ "model": "mikestopaz:block/axe_mold_melted_1" },
+        "fullness=24,melted=2":{ "model": "mikestopaz:block/axe_mold_melted_2" },
+        "fullness=24,melted=3":{ "model": "mikestopaz:block/axe_mold_melted_3" },
+        "fullness=24,melted=4":{"model": "mikestopaz:block/axe_mold_melted_4"}
+    }
+}

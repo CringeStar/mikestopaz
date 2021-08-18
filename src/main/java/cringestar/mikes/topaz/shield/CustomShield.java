@@ -40,7 +40,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
@@ -68,7 +68,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
@@ -95,7 +95,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
@@ -124,7 +124,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
@@ -154,7 +154,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
@@ -183,7 +183,7 @@ public class CustomShield extends Item {
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
 
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            FabricModelPredicateProviderRegistry.register(Items.SHIELD, new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
+            FabricModelPredicateProviderRegistry.register(new Identifier("blocking"), (itemStack, clientWorld, livingEntity, i) -> {
                 return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
             });
         }
