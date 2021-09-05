@@ -34,6 +34,12 @@
     "item.mikestopaz.topaz_hoe_head": "Topaz Hoe Head",
     "item.mikestopaz.topaz_hoe": "Topaz Hoe",
     "item.mikestopaz.topaz_shield": "Topaz Glinted Shield",
+    "item.mikestopaz.topaz_helmet": "Topaz Helmet",
+    "item.mikestopaz.topaz_chestplate": "Topaz Chestplate",
+    "item.mikestopaz.topaz_leggings": "Topaz Leggings",
+    "item.mikestopaz.topaz_boots": "Topaz Boots",
+    "enchantment.mikestopaz.shield_bash": "Shield Bash",
+    "enchantment.mikestopaz.shield_fling": "Shield Fling",
     "itemGroup.mikestopaz.general": "Mike's Topaz Mod"
   }
   

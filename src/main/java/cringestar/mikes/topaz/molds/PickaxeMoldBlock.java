@@ -1,5 +1,7 @@
-package cringestar.mikes.topaz;
+package cringestar.mikes.topaz.molds;
 
+import cringestar.mikes.topaz.HeaterBlock;
+import cringestar.mikes.topaz.MikesTopaz;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

@@ -59,9 +59,4 @@ public class HeaterBlock extends Block{
     }
 
 
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player){
-        world.playSound(null, pos, SoundEvents.BLOCK_METAL_BREAK, SoundCategory.BLOCKS, 1F, 1F);
-        world.addBlockBreakParticles(pos, state);
-    }
-
 }

@@ -3,6 +3,7 @@ package cringestar.mikes.topaz.mixin;
 import cringestar.mikes.topaz.shield.ShieldRegistry;
 import cringestar.mikes.topaz.shield.CustomShield;
 import cringestar.mikes.topaz.shield.ShieldEnchantment;
+import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +23,7 @@ import net.minecraft.util.Hand;
 public class LivingEntityMixin {
     @Inject(at = @At(value = "HEAD"), method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", locals = LocalCapture.CAPTURE_FAILHARD)
     private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> callbackInfo) {
-        LivingEntity entity = (LivingEntity)(Object)this;
+        LivingEntity entity = (LivingEntity) (Object)this;
         ItemStack activeItem = entity.getActiveItem();
 
         if(!(entity.isInvulnerableTo(source) || entity.world.isClient || entity.isDead() || (source.isFire() && entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))) {

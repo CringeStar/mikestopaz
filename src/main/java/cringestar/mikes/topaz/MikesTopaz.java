@@ -1,7 +1,11 @@
 package cringestar.mikes.topaz;
 
 import com.google.common.collect.ImmutableList;
-import cringestar.mikes.topaz.shield.CustomShield;
+import cringestar.mikes.topaz.armor.TopazArmorMaterial;
+import cringestar.mikes.topaz.molds.AxeMoldBlock;
+import cringestar.mikes.topaz.molds.PickaxeMoldBlock;
+import cringestar.mikes.topaz.molds.SwordMoldBlock;
+import cringestar.mikes.topaz.shield.*;
 import cringestar.mikes.topaz.tools.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -12,6 +16,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentLevelEntry;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -26,10 +33,14 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("ALL")
 
 public class MikesTopaz implements ModInitializer {
+
+	public static final Logger logger = LogManager.getLogger("MikesTopaz");
 	
 	public static final Item TOPAZ = new Item(new Item.Settings());
 	
@@ -99,6 +110,20 @@ public class MikesTopaz implements ModInitializer {
 
     public static final Item TOPAZ_SHIELD = new CustomShield(new FabricItemSettings(), 80, 640, 5, MikesTopaz.TOPAZ);
 
+	public static final ArmorMaterial TOPAZ_ARMOR_MATERIAL = new TopazArmorMaterial();
+
+	public static final Item TOPAZ_HELMET = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Settings());
+
+	public static final Item TOPAZ_CHESTPLATE = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings());
+
+	public static final Item TOPAZ_LEGGINGS = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Settings());
+
+	public static final Item TOPAZ_BOOTS = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Settings());
+
+	public static final Enchantment SHIELD_BASH = new ShieldBashEnchantment(Enchantment.Rarity.VERY_RARE,new ShieldBashEvent(true,false,false));
+
+	public static final Enchantment SHIELD_FLING = new ShieldFlingEnchantment(Enchantment.Rarity.VERY_RARE,new ShieldFlingEvent(false,true,false));
+
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
 	.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, TOPAZ_ORE.getDefaultState()),
 	OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_TOPAZ_ORE.getDefaultState())),
@@ -146,6 +171,14 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHOVEL));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_HOE));
 			stacks.add(new ItemStack(MikesTopaz.TOPAZ_SHIELD));
+			stacks.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(SHIELD_BASH, 1)));
+			stacks.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(SHIELD_BASH, 2)));
+			stacks.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(SHIELD_BASH, 3)));
+			stacks.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(SHIELD_FLING, 1)));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_HELMET));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_CHESTPLATE));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_LEGGINGS));
+			stacks.add(new ItemStack(MikesTopaz.TOPAZ_BOOTS));
 
 
 		})
@@ -155,91 +188,102 @@ public class MikesTopaz implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz"), TOPAZ);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz"), TOPAZ);
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","topaz_block"), TOPAZ_BLOCK);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_block"), new BlockItem(TOPAZ_BLOCK, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "topaz_block"), TOPAZ_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_block"), new BlockItem(TOPAZ_BLOCK, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","topaz_ore"), TOPAZ_ORE);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_ore"), new BlockItem(TOPAZ_ORE, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "topaz_ore"), TOPAZ_ORE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_ore"), new BlockItem(TOPAZ_ORE, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","deepslate_topaz_ore"), DEEPSLATE_TOPAZ_ORE);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "deepslate_topaz_ore"), new BlockItem(DEEPSLATE_TOPAZ_ORE, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "deepslate_topaz_ore"), DEEPSLATE_TOPAZ_ORE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "deepslate_topaz_ore"), new BlockItem(DEEPSLATE_TOPAZ_ORE, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","decorative_topaz_ore"), DECORATIVE_TOPAZ_ORE);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "decorative_topaz_ore"), new BlockItem(DECORATIVE_TOPAZ_ORE, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "decorative_topaz_ore"), DECORATIVE_TOPAZ_ORE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "decorative_topaz_ore"), new BlockItem(DECORATIVE_TOPAZ_ORE, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","decorative_deepslate_topaz_ore"), DECORATIVE_DEEPSLATE_TOPAZ_ORE);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "decorative_deepslate_topaz_ore"), new BlockItem(DECORATIVE_DEEPSLATE_TOPAZ_ORE, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "decorative_deepslate_topaz_ore"), DECORATIVE_DEEPSLATE_TOPAZ_ORE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "decorative_deepslate_topaz_ore"), new BlockItem(DECORATIVE_DEEPSLATE_TOPAZ_ORE, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","heater"), HEATER);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "heater"), new BlockItem(HEATER, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "heater"), HEATER);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "heater"), new BlockItem(HEATER, new Item.Settings()));
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz","topaz_covered_melon"), TOPAZ_COVERED_MELON);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_covered_melon"), TOPAZ_COVERED_MELON);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz","melty_topaz_covered_melon"), MELTY_TOPAZ_COVERED_MELON);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "melty_topaz_covered_melon"), MELTY_TOPAZ_COVERED_MELON);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz","topaz_enriched_melon"), TOPAZ_ENRICHED_MELON);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_enriched_melon"), TOPAZ_ENRICHED_MELON);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz","melty_topaz_enriched_melon"), MELTY_TOPAZ_ENRICHED_MELON);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "melty_topaz_enriched_melon"), MELTY_TOPAZ_ENRICHED_MELON);
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","super_container"), SUPER_CONTAINER);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "super_container"), new BlockItem(SUPER_CONTAINER, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "super_container"), SUPER_CONTAINER);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "super_container"), new BlockItem(SUPER_CONTAINER, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","contained_compact_lava"), CONTAINED_COMPACT_LAVA);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "contained_compact_lava"), new BlockItem(CONTAINED_COMPACT_LAVA, new Item.Settings().maxCount(1)));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "contained_compact_lava"), CONTAINED_COMPACT_LAVA);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "contained_compact_lava"), new BlockItem(CONTAINED_COMPACT_LAVA, new Item.Settings().maxCount(1)));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","pickaxe_mold"), PICKAXE_MOLD);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_mold"), new BlockItem(PICKAXE_MOLD, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "pickaxe_mold"), PICKAXE_MOLD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_mold"), new BlockItem(PICKAXE_MOLD, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","axe_mold"), AXE_MOLD);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_mold"), new BlockItem(AXE_MOLD, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "axe_mold"), AXE_MOLD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_mold"), new BlockItem(AXE_MOLD, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","sword_mold"), SWORD_MOLD);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_mold"), new BlockItem(SWORD_MOLD, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "sword_mold"), SWORD_MOLD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_mold"), new BlockItem(SWORD_MOLD, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","mold_block"), MOLD_BLOCK);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_block"), new BlockItem(MOLD_BLOCK, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "mold_block"), MOLD_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_block"), new BlockItem(MOLD_BLOCK, new Item.Settings()));
 
-	Registry.register(Registry.BLOCK, new Identifier("mikestopaz","mold_material"), MOLD_MATERIAL);
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_material"), new BlockItem(MOLD_MATERIAL, new Item.Settings()));
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "mold_material"), MOLD_MATERIAL);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_material"), new BlockItem(MOLD_MATERIAL, new Item.Settings()));
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_head_shape"), PICKAXE_HEAD_SHAPE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "pickaxe_head_shape"), PICKAXE_HEAD_SHAPE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_head_shape"), SWORD_HEAD_SHAPE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_head_shape"), SWORD_HEAD_SHAPE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_head_shape"),AXE_HEAD_SHAPE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "axe_head_shape"), AXE_HEAD_SHAPE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "shovel_head_shape"), SHOVEL_HEAD_SHAPE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "shovel_head_shape"), SHOVEL_HEAD_SHAPE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "hoe_head_shape"), HOE_HEAD_SHAPE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "hoe_head_shape"), HOE_HEAD_SHAPE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe_head"), TOPAZ_PICKAXE_HEAD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe_head"), TOPAZ_PICKAXE_HEAD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword_head"), TOPAZ_SWORD_HEAD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword_head"), TOPAZ_SWORD_HEAD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe_head"), TOPAZ_AXE_HEAD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe_head"), TOPAZ_AXE_HEAD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel_head"), TOPAZ_SHOVEL_HEAD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel_head"), TOPAZ_SHOVEL_HEAD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe_head"), TOPAZ_HOE_HEAD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe_head"), TOPAZ_HOE_HEAD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe"), TOPAZ_PICKAXE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_pickaxe"), TOPAZ_PICKAXE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword"), TOPAZ_SWORD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_sword"), TOPAZ_SWORD);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe"), TOPAZ_AXE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_axe"), TOPAZ_AXE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel"), TOPAZ_SHOVEL);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shovel"), TOPAZ_SHOVEL);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe"), TOPAZ_HOE);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_hoe"), TOPAZ_HOE);
 
-	Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shield"), TOPAZ_SHIELD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shield"), TOPAZ_SHIELD);
 
-	RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz","topaz_ore"));
-	Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
-	BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreOverworld);
+		Registry.register(Registry.ENCHANTMENT, new Identifier("mikestopaz", "shield_fling"), SHIELD_FLING);
+		Registry.register(Registry.ENCHANTMENT, new Identifier("mikestopaz", "shield_bash"),SHIELD_BASH);
+
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_helmet"), TOPAZ_HELMET);
+
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_chestplate"), TOPAZ_CHESTPLATE);
+
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_leggings"), TOPAZ_LEGGINGS);
+
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_boots"), TOPAZ_BOOTS);
+
+		RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz", "topaz_ore"));
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
+		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreOverworld);
 
 
 	}
-}
+	}
