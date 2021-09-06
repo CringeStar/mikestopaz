@@ -17,10 +17,8 @@ public class TopazShovelItem extends ShovelItem {
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 300, 1));
-            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 300, 1));
-            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 300, 1));
-            miner.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0));
+        miner.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100, 3));
+        miner.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 100, 1));
         return super.postMine(stack,world,state,pos,miner);
     }
 

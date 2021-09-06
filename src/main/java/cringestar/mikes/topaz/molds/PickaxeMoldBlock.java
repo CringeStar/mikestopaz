@@ -70,6 +70,7 @@ public void randomTick(BlockState blockState, ServerWorld world, BlockPos pos, R
             if (world.getBlockState(pos.down()).isOf(MikesTopaz.HEATER))
             if (!world.getBlockState(pos.down()).get(HeaterBlock.EMPTY)){
                     a++;
+                    world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     world.setBlockState(pos, blockState.with(MELTED, a));
                     if (a == 2) {
                         if (!world.isClient) {

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "fullness=0,melted=0": { "model": "mikestopaz:block/sword_mold" },
+        "fullness=1,melted=0": { "model": "mikestopaz:block/sword_mold_1" },
+        "fullness=2,melted=0": { "model": "mikestopaz:block/sword_mold_2" },
+        "fullness=3,melted=0": { "model": "mikestopaz:block/sword_mold_3" },
+        "fullness=4,melted=0": { "model": "mikestopaz:block/sword_mold_4" },
+        "fullness=5,melted=0": { "model": "mikestopaz:block/sword_mold_5" },
+        "fullness=6,melted=0": { "model": "mikestopaz:block/sword_mold_6" },
+        "fullness=7,melted=0": { "model": "mikestopaz:block/sword_mold_7" },
+        "fullness=8,melted=0": { "model": "mikestopaz:block/sword_mold_8" },
+        "fullness=9,melted=0": { "model": "mikestopaz:block/sword_mold_9" },
+        "fullness=10,melted=0":{ "model": "mikestopaz:block/sword_mold_10" },
+        "fullness=11,melted=0":{ "model": "mikestopaz:block/sword_mold_11" },
+        "fullness=12,melted=0":{ "model": "mikestopaz:block/sword_mold_12" },
+        "fullness=12,melted=1":{ "model": "mikestopaz:block/sword_mold_melt_1" },
+        "fullness=12,melted=2":{"model": "mikestopaz:block/sword_mold_melted"}
+    }
+}

@@ -155,6 +155,7 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.MOLD_MATERIAL));
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.AXE_MOLD));
+			stacks.add(new ItemStack(MikesTopaz.SWORD_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.SWORD_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.AXE_HEAD_SHAPE));

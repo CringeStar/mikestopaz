@@ -73,8 +73,8 @@ public void randomTick(BlockState blockState, ServerWorld world, BlockPos pos, R
             if (!world.getBlockState(pos.down()).get(HeaterBlock.EMPTY)){
                     a++;
                     world.setBlockState(pos, blockState.with(MELTED, a));
-                    world.playSound(null,pos.getX(),pos.getY(),pos.getZ(), SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 1F, 1F);
-                    if (a == 4) {
+                     world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (a == 4) {
                         if (!world.isClient) {
                             world.setBlockState(pos, blockState.with(MELTED, 4));
                             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
