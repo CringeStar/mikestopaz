@@ -22,10 +22,13 @@ import java.util.Random;
 
 public class PickaxeMoldBlock extends Block{
 
-   public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+    public static int maxFull = 12;
+    public static int maxMelt = 2;
 
-    public static final IntProperty FULLNESS = IntProperty.of("fullness", 0, 12);
-    public static final IntProperty MELTED = IntProperty.of("melted", 0, 2);
+    public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+
+    public static final IntProperty FULLNESS = IntProperty.of("fullness", 0, maxFull);
+    public static final IntProperty MELTED = IntProperty.of("melted", 0, maxMelt);
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
@@ -39,13 +42,14 @@ public class PickaxeMoldBlock extends Block{
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
-     }
+    }
 
-     @Override
+
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         int i = state.get(FULLNESS);
-        if (i < 12){
+        if (i < maxFull){
         if (itemStack.getItem() == MikesTopaz.TOPAZ) {
             if (!world.isClient) {
                 i++;
@@ -55,8 +59,11 @@ public class PickaxeMoldBlock extends Block{
             }
     }
 
-}
-    return ActionResult.SUCCESS;
+            return ActionResult.SUCCESS;
+        }else{
+            return ActionResult.PASS;
+        }
+
 }
 
 @Override
@@ -65,22 +72,23 @@ public class PickaxeMoldBlock extends Block{
 public void randomTick(BlockState blockState, ServerWorld world, BlockPos pos, Random random){
     int i = blockState.get(FULLNESS);
     int a = blockState.get(MELTED);
-    if(i == 12) {
-        if (a < 2){
-            if (world.getBlockState(pos.down()).isOf(MikesTopaz.HEATER))
-            if (!world.getBlockState(pos.down()).get(HeaterBlock.EMPTY)){
+    if(i == maxFull) {
+        if (a < maxMelt){
+            if (world.getBlockState(pos.down()).isOf(MikesTopaz.HEATER)){
+                if (!world.getBlockState(pos.down()).get(HeaterBlock.EMPTY)) {
                     a++;
                     world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     world.setBlockState(pos, blockState.with(MELTED, a));
-                    if (a == 2) {
+                    if (a == maxMelt) {
                         if (!world.isClient) {
-                            world.setBlockState(pos, blockState.with(MELTED, 2));
+                            world.setBlockState(pos, blockState.with(MELTED, maxMelt));
                             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         }
+                    }
                 }
+            }
         }
     }
-    }
-    }
+}
 
 }

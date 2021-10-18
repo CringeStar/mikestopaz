@@ -1,10 +1,15 @@
 package cringestar.mikes.topaz;
 
+import cringestar.mikes.topaz.molds.AxeMoldBlock;
+import cringestar.mikes.topaz.molds.HoeMoldBlock;
+import cringestar.mikes.topaz.molds.PickaxeMoldBlock;
+import cringestar.mikes.topaz.molds.SwordMoldBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -15,6 +20,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 
@@ -58,5 +65,15 @@ public class HeaterBlock extends Block{
         return ActionResult.SUCCESS;
     }
 
-
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+       if (world.getBlockState(pos.down()).isOf(MikesTopaz.HOE_MOLD) || world.getBlockState(pos.down()).isOf(MikesTopaz.SWORD_MOLD) || world.getBlockState(pos.down()).isOf(MikesTopaz.PICKAXE_MOLD) || world.getBlockState(pos.down()).isOf(MikesTopaz.AXE_MOLD)){
+            if (world.getBlockState(pos.down()).get(AxeMoldBlock.MELTED) == 4 || world.getBlockState(pos.down()).get(SwordMoldBlock.MELTED) == 2 || world.getBlockState(pos.down()).get(PickaxeMoldBlock.MELTED) == 2 || world.getBlockState(pos.down()).get(HoeMoldBlock.MELTED) == 4) {
+               if (!world.isClient){
+                   world.setBlockState(pos, state.with(EMPTY, true));
+                   world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_EXTINGUISH , SoundCategory.BLOCKS, 1.0F, 1.0F);
+               }
+           }
+       }
+    }
 }

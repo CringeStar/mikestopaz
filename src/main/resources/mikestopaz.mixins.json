@@ -4,11 +4,8 @@
   "package": "cringestar.mikes.topaz.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "LivingEntityAccessor",
-    "LivingEntityMixin",
-    "PlayerEntityMixin",
-    "ShieldItemMixin",
-    "ArmorItemMixin"
+    "ArmorItemMixin",
+    "RendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

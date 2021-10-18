@@ -1,9 +1,16 @@
 package cringestar.mikes.topaz.shield;
 
-public class ShieldBashEnchantment extends ShieldEnchantment{
+import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldEnchantment;
+import cringestar.mikes.topaz.MikesTopaz;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
-    public ShieldBashEnchantment(Rarity weight, ShieldEvent event) {
-        super(weight, event);
+public class ShieldBashEnchantment extends FabricShieldEnchantment {
+
+    public ShieldBashEnchantment(Rarity weight) {
+        super(weight);
     }
 
     @Override
@@ -14,4 +21,13 @@ public class ShieldBashEnchantment extends ShieldEnchantment{
     public int getMaxLevel() {
         return 3;
     }
+    @Override
+    public boolean canAccept(Enchantment other) {
+        return !(other instanceof ShieldFlingEnchantment) && super.canAccept(other);
+    }
+    @Override
+    public boolean isAcceptableItem(ItemStack item) {
+        return item.isOf(MikesTopaz.TOPAZ_SHIELD);
+    }
 }
+

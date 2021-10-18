@@ -1,11 +1,17 @@
 package cringestar.mikes.topaz;
 
+import com.github.crimsondawn45.fabricshieldlib.lib.event.ShieldBlockCallback;
+import com.github.crimsondawn45.fabricshieldlib.lib.event.ShieldDisabledCallback;
+import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricBannerShieldItem;
+import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldEnchantment;
 import com.google.common.collect.ImmutableList;
 import cringestar.mikes.topaz.armor.TopazArmorMaterial;
 import cringestar.mikes.topaz.molds.AxeMoldBlock;
+import cringestar.mikes.topaz.molds.HoeMoldBlock;
 import cringestar.mikes.topaz.molds.PickaxeMoldBlock;
 import cringestar.mikes.topaz.molds.SwordMoldBlock;
-import cringestar.mikes.topaz.shield.*;
+import cringestar.mikes.topaz.shield.ShieldBashEnchantment;
+import cringestar.mikes.topaz.shield.ShieldFlingEnchantment;
 import cringestar.mikes.topaz.tools.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -16,15 +22,24 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -39,6 +54,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("ALL")
 
 public class MikesTopaz implements ModInitializer {
+
 
 	public static final Logger logger = LogManager.getLogger("MikesTopaz");
 	
@@ -74,6 +90,8 @@ public class MikesTopaz implements ModInitializer {
 
 	public static final Block SWORD_MOLD = new SwordMoldBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque().ticksRandomly());
 
+	public static final Block HOE_MOLD = new HoeMoldBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque().ticksRandomly());
+
 	public static final Block MOLD_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool());
 
 	public static final Block MOLD_MATERIAL = new MoldMaterial(FabricBlockSettings.of(Material.STONE).strength(2.5F, 7.0F).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES, 0).requiresTool().nonOpaque());
@@ -108,7 +126,9 @@ public class MikesTopaz implements ModInitializer {
 
 	public static ToolItem TOPAZ_HOE = new TopazHoeItem(TopazToolMaterial.INSTANCE, -3, -0.5F, new Item.Settings());
 
-    public static final Item TOPAZ_SHIELD = new CustomShield(new FabricItemSettings(), 80, 640, 5, MikesTopaz.TOPAZ);
+    public static final Item TOPAZ_SHIELD = new FabricBannerShieldItem(new FabricItemSettings().maxDamage(640), 80, 5, MikesTopaz.TOPAZ);
+
+	public static final EntityModelLayer TOPAZ_SHIELD_MODEL_LAYER = new EntityModelLayer(new Identifier("mikestopaz", "topaz_shield"),"main");
 
 	public static final ArmorMaterial TOPAZ_ARMOR_MATERIAL = new TopazArmorMaterial();
 
@@ -120,9 +140,9 @@ public class MikesTopaz implements ModInitializer {
 
 	public static final Item TOPAZ_BOOTS = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Settings());
 
-	public static final Enchantment SHIELD_BASH = new ShieldBashEnchantment(Enchantment.Rarity.VERY_RARE,new ShieldBashEvent(true,false,false));
+	public static final FabricShieldEnchantment SHIELD_BASH = new ShieldBashEnchantment(Enchantment.Rarity.VERY_RARE);
 
-	public static final Enchantment SHIELD_FLING = new ShieldFlingEnchantment(Enchantment.Rarity.VERY_RARE,new ShieldFlingEvent(false,true,false));
+	public static final FabricShieldEnchantment SHIELD_FLING = new ShieldFlingEnchantment(Enchantment.Rarity.UNCOMMON);
 
 	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
 	.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, TOPAZ_ORE.getDefaultState()),
@@ -156,6 +176,7 @@ public class MikesTopaz implements ModInitializer {
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.AXE_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.SWORD_MOLD));
+			stacks.add(new ItemStack(MikesTopaz.HOE_MOLD));
 			stacks.add(new ItemStack(MikesTopaz.PICKAXE_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.SWORD_HEAD_SHAPE));
 			stacks.add(new ItemStack(MikesTopaz.AXE_HEAD_SHAPE));
@@ -232,6 +253,10 @@ public class MikesTopaz implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "sword_mold"), SWORD_MOLD);
 		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "sword_mold"), new BlockItem(SWORD_MOLD, new Item.Settings()));
 
+		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "hoe_mold"), HOE_MOLD);
+		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "hoe_mold"), new BlockItem(HOE_MOLD, new Item.Settings()));
+
+
 		Registry.register(Registry.BLOCK, new Identifier("mikestopaz", "mold_block"), MOLD_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "mold_block"), new BlockItem(MOLD_BLOCK, new Item.Settings()));
 
@@ -271,6 +296,7 @@ public class MikesTopaz implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_shield"), TOPAZ_SHIELD);
 
 		Registry.register(Registry.ENCHANTMENT, new Identifier("mikestopaz", "shield_fling"), SHIELD_FLING);
+
 		Registry.register(Registry.ENCHANTMENT, new Identifier("mikestopaz", "shield_bash"),SHIELD_BASH);
 
 		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_helmet"), TOPAZ_HELMET);
@@ -281,10 +307,92 @@ public class MikesTopaz implements ModInitializer {
 
 		Registry.register(Registry.ITEM, new Identifier("mikestopaz", "topaz_boots"), TOPAZ_BOOTS);
 
-		RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz", "topaz_ore"));
+		ShieldBlockCallback.EVENT.register((defender, source, amount, hand, shield) -> {
+			if (SHIELD_BASH.hasEnchantment(shield)){
+				Entity attacker = source.getAttacker();
+				float headYaw = defender.getHeadYaw();
+				double level = EnchantmentHelper.getLevel(SHIELD_BASH, shield);
+				double launchX = 0;
+				double launchZ = 0;
+				double mult = level-0.5;
+				World world = defender.getEntityWorld();
+				if (!world.isClient) {
+					if (headYaw <= -90 && headYaw >= -180) {
+						launchX = 1.5D;
+						launchZ = -1.5D;
+					}
+
+					if (headYaw <= 0 && headYaw >= -90) {
+						launchX = 1.5D;
+						launchZ = 1.5D;
+					}
+					if (headYaw <= 90 && headYaw >= 0) {
+						launchX = -1.5D;
+						launchZ = 1.5D;
+					}
+					if (headYaw <= 180 && headYaw >= 90) {
+						launchX = -1.5D;
+						launchZ = -1.5D;
+					}
+
+					if (level > 1) {
+						launchX = launchX * mult;
+						launchZ = launchZ * mult;
+					}
+				assert attacker != null;
+				if(defender instanceof PlayerEntity) {  //Defender should always be a player, but check anyways
+					attacker.addVelocity(launchX, 1D, launchZ);
+					attacker.damage(DamageSource.player((PlayerEntity) defender), 3.0F);
+					shield.damage(5, defender, (p) -> p.sendToolBreakStatus(defender.getActiveHand()));
+				} else {
+					attacker.addVelocity(launchX, 1D, launchZ);
+					attacker.damage(DamageSource.mob(defender), 3.0F);
+					shield.damage(5, defender, (p) -> p.sendToolBreakStatus(defender.getActiveHand()));
+				}
+			}
+
+		}
+			return ActionResult.PASS;
+		});
+
+		ShieldDisabledCallback.EVENT.register((defender, hand, shield) -> {
+			float headYaw = defender.getHeadYaw();
+			double launchX = 0;
+			double launchZ = 0;
+			World world = defender.getEntityWorld();
+				if (!world.isClient) {
+					if (headYaw <= -90 && headYaw >= -180) {
+						launchX = 5D;
+						launchZ = -5D;
+					}
+
+					if (headYaw <= 0 && headYaw >= -90) {
+						launchX = 5D;
+						launchZ = 5D;
+					}
+					if (headYaw <= 90 && headYaw >= 0) {
+						launchX = -5D;
+						launchZ = 5D;
+					}
+					if (headYaw <= 180 && headYaw >= 90) {
+						launchX = -5D;
+						launchZ = -5D;
+					}
+					shield.damage(5, defender, (p) -> p.sendToolBreakStatus(defender.getActiveHand()));
+					defender.addVelocity(launchX, 1D, launchZ);
+					defender.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 300, 1));
+					defender.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 300, 1));
+					defender.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 300, 1));
+					defender.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 450, 1));
+			}
+				return ActionResult.PASS;
+		});
+
+
+			RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz", "topaz_ore"));
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreOverworld);
 
 
 	}
-	}
+}
