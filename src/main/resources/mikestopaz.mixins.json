@@ -2,9 +2,12 @@
   "required": true,
   "minVersion": "0.8",
   "package": "cringestar.mikes.topaz.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ArmorItemMixin",
+    "FabricBannerShieldMixin"
+  ],
+  "client": [
     "RendererMixin"
   ],
   "injectors": {

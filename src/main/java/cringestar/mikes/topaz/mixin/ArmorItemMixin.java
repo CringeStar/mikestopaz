@@ -2,9 +2,7 @@ package cringestar.mikes.topaz.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.ibm.icu.impl.locale.XCldrStub;
 import cringestar.mikes.topaz.MikesTopaz;
-import cringestar.mikes.topaz.armor.TopazArmorMaterial;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;

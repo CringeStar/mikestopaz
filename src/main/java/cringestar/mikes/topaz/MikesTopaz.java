@@ -22,8 +22,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantment.Rarity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.entity.Entity;
@@ -42,12 +41,10 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
+import net.minecraft.world.gen.decorator.CountPlacementModifier;
+import net.minecraft.world.gen.decorator.HeightRangePlacementModifier;
+import net.minecraft.world.gen.decorator.SquarePlacementModifier;
+import net.minecraft.world.gen.feature.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -128,8 +125,6 @@ public class MikesTopaz implements ModInitializer {
 
     public static final Item TOPAZ_SHIELD = new FabricBannerShieldItem(new FabricItemSettings().maxDamage(640), 80, 5, MikesTopaz.TOPAZ);
 
-	public static final EntityModelLayer TOPAZ_SHIELD_MODEL_LAYER = new EntityModelLayer(new Identifier("mikestopaz", "topaz_shield"),"main");
-
 	public static final ArmorMaterial TOPAZ_ARMOR_MATERIAL = new TopazArmorMaterial();
 
 	public static final Item TOPAZ_HELMET = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Settings());
@@ -140,18 +135,19 @@ public class MikesTopaz implements ModInitializer {
 
 	public static final Item TOPAZ_BOOTS = new ArmorItem(TOPAZ_ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Settings());
 
-	public static final FabricShieldEnchantment SHIELD_BASH = new ShieldBashEnchantment(Enchantment.Rarity.VERY_RARE);
+	public static final FabricShieldEnchantment SHIELD_BASH = new ShieldBashEnchantment(Rarity.RARE);
 
-	public static final FabricShieldEnchantment SHIELD_FLING = new ShieldFlingEnchantment(Enchantment.Rarity.UNCOMMON);
+	public static final FabricShieldEnchantment SHIELD_FLING = new ShieldFlingEnchantment(Rarity.COMMON);
 
-	private static ConfiguredFeature<?, ?> TOPAZ_ORE_OVERWORLD = Feature.ORE
-	.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, TOPAZ_ORE.getDefaultState()),
-	OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_TOPAZ_ORE.getDefaultState())),
-	3))
-	.decorate(Decorator.RANGE
-	.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(32)))))
-	.spreadHorizontally()
-	.repeat(1);
+
+	private static ConfiguredFeature<?,?> TOPAZ_ORE_OVERWORLD_CONFIGURED = Feature.ORE.configure(new OreFeatureConfig
+			(ImmutableList.of(OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, TOPAZ_ORE.getDefaultState()),
+					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_TOPAZ_ORE.getDefaultState())), 5));
+
+	public static PlacedFeature TOPAZ_ORE_OVERWORLD_PLACED = TOPAZ_ORE_OVERWORLD_CONFIGURED.withPlacement(
+			CountPlacementModifier.of(2), // number of veins per chunk
+			SquarePlacementModifier.of(), // spreading horizontally
+			HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(32)));
 
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(
 		new Identifier("mikestopaz","general"))
@@ -388,11 +384,9 @@ public class MikesTopaz implements ModInitializer {
 				return ActionResult.PASS;
 		});
 
-
-			RegistryKey<ConfiguredFeature<?, ?>> topazOreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier("mikestopaz", "topaz_ore"));
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, topazOreOverworld.getValue(), TOPAZ_ORE_OVERWORLD);
-		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, topazOreOverworld);
-
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier("mikestopaz", "topaz_ore"), TOPAZ_ORE_OVERWORLD_CONFIGURED);
+		Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier("mikestopaz", "topaz_ore"), TOPAZ_ORE_OVERWORLD_PLACED);
+		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier("mikestopaz", "topaz_ore")));
 
 	}
 }

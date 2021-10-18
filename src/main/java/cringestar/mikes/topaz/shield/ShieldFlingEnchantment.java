@@ -3,7 +3,6 @@ package cringestar.mikes.topaz.shield;
 import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldEnchantment;
 import cringestar.mikes.topaz.MikesTopaz;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ShieldFlingEnchantment extends FabricShieldEnchantment {
@@ -14,6 +13,17 @@ public class ShieldFlingEnchantment extends FabricShieldEnchantment {
     public int getMinPower(int level) {
         return 1;
     }
+
+    @Override
+    public int getMaxPower(int level) {
+        return 15;
+    }
+
+    @Override
+    public int getMinLevel() {
+        return 1;
+    }
+
     @Override
     public int getMaxLevel() {
         return 1;

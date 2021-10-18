@@ -1,8 +1,9 @@
 package cringestar.mikes.topaz.mixin;
 
 
-import com.github.crimsondawn45.fabricshieldlib.initializers.FabricShieldLib;
+import com.github.crimsondawn45.fabricshieldlib.initializers.FabricShieldLibClient;
 import cringestar.mikes.topaz.MikesTopaz;
+import cringestar.mikes.topaz.MikesTopazClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.entity.model.ShieldEntityModel;
@@ -33,13 +34,13 @@ public class RendererMixin {
 
     @Inject(method = "reload", at = @At("HEAD"))
      private void setModelTopazShield(CallbackInfo ci){
-        this.modelTopazShield = new ShieldEntityModel(this.entityModelLoader.getModelPart(MikesTopaz.TOPAZ_SHIELD_MODEL_LAYER));
+        this.modelTopazShield = new ShieldEntityModel(this.entityModelLoader.getModelPart(MikesTopazClient.TOPAZ_SHIELD_MODEL_LAYER));
     }
 
     @Inject(method = "render", at = @At("HEAD"))
     private void mainRender(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, CallbackInfo ci) {
         if (stack.isOf(MikesTopaz.TOPAZ_SHIELD)) {
-            FabricShieldLib.renderBanner(stack, matrices, vertexConsumers, light, overlay, modelTopazShield, TOPAZ_SHIELD_BASE, TOPAZ_SHIELD_BASE_NO_PATTERN);
+            FabricShieldLibClient.renderBanner(stack, matrices, vertexConsumers, light, overlay, modelTopazShield, TOPAZ_SHIELD_BASE, TOPAZ_SHIELD_BASE_NO_PATTERN);
         }
     }
 
