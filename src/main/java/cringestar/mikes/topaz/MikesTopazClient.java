@@ -27,7 +27,10 @@ public class MikesTopazClient implements ClientModInitializer{
         BlockRenderLayerMap.INSTANCE.putBlock(MikesTopaz.AXE_MOLD, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MikesTopaz.HOE_MOLD, RenderLayer.getCutout());
         EntityModelLayerRegistry.registerModelLayer(TOPAZ_SHIELD_MODEL_LAYER, ShieldEntityModel::getTexturedModelData);
-        ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) ->
-                registry.register(new Identifier("mikestopaz", "entity/topaz_shield_base")));
+        ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) ->{
+            registry.register(new Identifier("mikestopaz", "entity/topaz_shield_base"));
+            registry.register(new Identifier("mikestopaz", "entity/topaz_shield_base_nopattern"));
+        });
+
     }
 }
